@@ -1,9 +1,137 @@
 ---
 import Layout from '@layouts/Layout.astro';
-const gh = '';
-const title = '';
+const gh = 'https://github.com/jws-playgrounds/svg-logo-animation';
+const title = 'svg-logo-animation';
 ---
 
 <Layout pageId='top' gh={gh} title={title}>
-  <div class='container'></div>
+  <div class='logo'>
+    <div id='svg' v-bind:style='svgStyle'>
+      <svg
+        id='logo'
+        data-name='logo'
+        xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 152.34 52.28'
+      >
+        <g id='icon' fill='none' fill-rule='evenodd' class='lines'>
+          <path
+            id='icon_triangle'
+            class='cls-1'
+            d='M24.86,38.59,13.15,20.17,38,17.32Z'></path>
+          <path
+            id='icon_j'
+            class='cls-1'
+            d='M46.56,25.63h5.72V52.28H39.6V46.56h7Z'></path>
+          <path
+            id='icon_box'
+            class='cls-1'
+            d='M37.15,46.56v5.72H0V0H52.28V23.18H46.56V5.72H5.72V46.56Z'></path>
+        </g>
+        <g id='logo' fill='none' fill-rule='evenodd' class='lines'>
+          <path
+            id='logo_j'
+            class='cls-1'
+            d='M78.38,9.31h7.45V44H69.31V36.55h9.07Z'></path>
+          <path
+            id='logo_w'
+            class='cls-1'
+            d='M122.3,44h-7.2l-4.48-24.54L106.13,44h-7.2L91.67,9.33h7.6l3.26,24.5,4.29-24.5h7.59l4.29,24.5L122,9.33h7.6Z'
+          ></path>
+          <path
+            id='logo_s'
+            class='cls-1'
+            d='M150.06,42a10.92,10.92,0,0,1-7.66,2.62c-3.46,0-6-1-7.61-2.57s-2.32-4.2-2.32-7.8h7c0,1.43.1,2.47.74,3.21a2.8,2.8,0,0,0,2.17.84,2.56,2.56,0,0,0,2.23-.89,4.62,4.62,0,0,0,.69-3c0-3.36-.54-3.95-3.06-5l-4.45-1.82c-3.56-1.49-5-3.37-5-8.85A9.91,9.91,0,0,1,135.93,11a9.63,9.63,0,0,1,6.47-2.22c3.12,0,5.39.79,6.92,2.22,1.93,1.78,2.72,4.6,2.72,8.16h-7a5.33,5.33,0,0,0-.59-3.17,2.29,2.29,0,0,0-2-.89,2.36,2.36,0,0,0-2,.94,3.93,3.93,0,0,0-.6,2.52c0,2.23.4,2.87,2.43,3.71l4.39,1.78c4.45,1.78,5.74,3.8,5.74,10.18C152.34,37.78,151.89,40.26,150.06,42Z'
+          ></path>
+        </g>
+      </svg>
+    </div>
+  </div>
 </Layout>
+
+<style is:inline>
+  .logo {
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+  }
+  #svg {
+    width: 40vw;
+  }
+  .cls-1 {
+    stroke-width: 0.2;
+  }
+</style>
+
+<script
+  src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'
+  is:inline></script>
+<script
+  src='https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js'
+  is:inline></script>
+<script defer>
+  anime.set('#icon', { translateX: 50 });
+  anime.set('#icon_triangle', {
+    rotate: 32,
+    translateX: 10,
+    translateY: -16,
+  });
+  anime
+    .timeline({
+      easing: 'easeInOutSine',
+      duration: 500,
+      loop: true,
+    })
+    .add({
+      targets: '#icon path',
+      strokeDashoffset: [anime.setDashoffset, 0],
+      easing: 'easeInOutSine',
+      stroke: '#fff',
+      duration: 1000,
+      delay: function (el, i) {
+        return i * 50;
+      },
+      direction: 'alternate',
+    })
+    .add({
+      targets: '#icon path',
+      duration: 1000,
+      fill: '#fff',
+    })
+    .add({
+      targets: '#icon_triangle',
+      duration: 300,
+      rotate: 0,
+      translateX: 0,
+      translateY: 0,
+    })
+    .add({
+      targets: '#icon',
+      duration: 300,
+      translateX: 0,
+    })
+    .add({
+      targets: '#logo path',
+      duration: 300,
+      stroke: '#fff',
+      fill: '#fff',
+      delay: function (el, i) {
+        return i * 150;
+      },
+    })
+    .add({
+      targets: '#icon_box',
+      fill: '#00aed4',
+      stroke: '#00aed4',
+      duration: 300,
+    })
+    .add({
+      targets: '#svg',
+      opacity: '0',
+      delay: 1000,
+      duration: 1500,
+    });
+</script>
